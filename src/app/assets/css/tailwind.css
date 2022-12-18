@@ -1,0 +1,52 @@
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;900&display=swap');
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+*{
+    font-family: 'Public Sans', sans-serif !important;
+}
+td, th{
+    border-bottom: 2px solid #FAFBFC !important;
+}
+.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper{
+    box-shadow: 0px 0px 0px rgb(0 0 0 / 5%), -3px 1px 10px 0px rgb(0 0 0 / 3%) !important;
+}
+.MuiOutlinedInput-input:focus{
+    --tw-ring-offset-shadow:none;
+    --tw-ring-color : none;
+}
+
+.w-fit-content {
+    width: fit-content;
+    width: -moz-fit-content;
+}
+
+.dropdown:focus-within .dropdown-menu {
+    opacity:1;
+    transform: translate(0) scale(1);
+    visibility: visible;
+}
+
+/* Always Show scrollbar */
+
+.always-scrollbar {
+    overflow-y: auto;
+}
+
+.always-scrollbar::-webkit-scrollbar {
+    -webkit-appearance: none;
+}
+
+.always-scrollbar::-webkit-scrollbar:vertical {
+    width: 11px;
+}
+
+.always-scrollbar::-webkit-scrollbar:horizontal {
+    height: 11px;
+}
+
+.always-scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    border: 2px solid white; /* should match background, can't be transparent */
+    background-color: rgba(0, 0, 0, .5);
+}
