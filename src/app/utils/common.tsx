@@ -12,13 +12,13 @@ export const getApiResponseErrorMessage = (object: any) => {
 export const getResponseFromApiResponse = (object: any): any => {
   const { data, headers } = object;
   if (data?.meta || data?.data?.length || data?.data?.length === 0) {
-    return { data: data?.data, meta: data?.meta };
+    return { data: data?.response, meta: data?.meta };
   }
   // Handling for file download
   if(headers[`content-type`] && (headers[`content-type`] === "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" || headers[`content-type`] === "application/pdf")) {
     return {data:data, headers: headers};
   }
-  const response = data?.data;
+  const response = data?.response;
   return response;
 };
 
@@ -36,7 +36,7 @@ export const getAuthRoute = () => {
 };
 
 export const capitalize = (str: string) =>
-  str.charAt(0).toUpperCase() + str.slice(1);
+  str?.charAt(0).toUpperCase() + str.slice(1);
 
 export const getUserData = (object: UserObject) => {
   return object;
@@ -114,7 +114,7 @@ export interface IReturnType {
 }
 
 export interface RouteComponent {
-  routeKey: string;
+  
 }
 
 export function useRouteMatch(patterns: readonly string[]) {

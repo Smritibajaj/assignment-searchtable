@@ -18,7 +18,7 @@ const drawerWidth = 264;
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
-const capitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1);
+const capitalize = (str: string) => str?.charAt(0).toUpperCase() + str?.slice(1) ?? 'P';
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== "open",
 })<AppBarProps>(({ theme, open }) => ({
@@ -42,7 +42,6 @@ const AppBar = styled(MuiAppBar, {
 export default function Appbar(props: any) {
   const { open, handleDrawerOpen } = props;
   const navigate = useNavigate();
-  const userType = AuthHelpers.getUserTypeFromLocalStorage() || props?.routeKey;
   //const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const userSelector = useSelector((state: any) => state.user);
@@ -62,7 +61,7 @@ export default function Appbar(props: any) {
 
   const handleProfile = () => {
     navigate(
-      `/${userType}/${APP_USER_ROUTES.profile}`
+      `/${APP_USER_ROUTES.buyer}/${APP_USER_ROUTES.profile}`
     );
   }
 
@@ -123,7 +122,7 @@ export default function Appbar(props: any) {
             >
               <p className="truncate text-base">
                 {userSelector.data
-                  ? capitalize(userSelector.data?.first_name)[0]
+                  ? capitalize(userSelector.data?.userName)[0]
                   : "R"}
               </p>
             </Avatar>

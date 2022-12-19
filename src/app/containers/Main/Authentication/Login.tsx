@@ -38,11 +38,8 @@ const validationSchema = yup.object().shape({
 });
 
 const Login: React.FC<RouteComponent> = (props: RouteComponent) => {
-  const { slug } = useParams();
-  const { routeKey } = props;
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const param = routeKey;
   const loginSelector = useSelector((state: any) => state.auth.login);
   const resendEmailVerifySelector = useSelector(
     (state: any) => state.auth.resendEmailVerify
@@ -69,7 +66,6 @@ const Login: React.FC<RouteComponent> = (props: RouteComponent) => {
       dispatch(
         login({
           body: { ...values },
-          user: param,
         })
       );
     },
@@ -77,26 +73,15 @@ const Login: React.FC<RouteComponent> = (props: RouteComponent) => {
 
   const makeUserLoggedIn = () => {
     AuthHelpers.saveTokenToLocalStorage(loginSelector.data?.token);
-    AuthHelpers.saveUserTypeToLocalStorage(routeKey);
-    const key = AuthHelpers.getDataFromLocalStorage('intendedUrl');
-    window.location.href = key && key?.includes(routeKey) ?  key : `/${routeKey}/${APP_USER_ROUTES.dashboard}`;
-    AuthHelpers.removeKeyFromLocalStorage('intendedUrl')
+    window.location.href = `/${APP_USER_ROUTES.buyer}/${APP_USER_ROUTES.dashboard}`;
   };
-
-  const handleSwitchOrganisation = (e: any) => {
-    AuthHelpers.removeKeyFromLocalStorage("company");
-    AuthHelpers.removeKeyFromLocalStorage("c_uuid");
-    window.location.href = `/${routeKey}/${APP_USER_ROUTES.login}`;
-  };
-
+  
   const resendEmailForVerification = () => {
     dispatch(
       resendEmailVerification({
         body: {
           email: formik.values.email,
-          type: param,
-        },
-        user: param,
+        }
       })
     );
   };
@@ -189,7 +174,7 @@ const Login: React.FC<RouteComponent> = (props: RouteComponent) => {
             <p className="mt-4 text-right">
               <Link
                 className="text-brand-primary-blue"
-                to={`/${routeKey}/${APP_USER_ROUTES.forgotPassword}`}
+                to={`/${APP_USER_ROUTES.buyer}/${APP_USER_ROUTES.forgotPassword}`}
               >
                 Forgot Password
               </Link>

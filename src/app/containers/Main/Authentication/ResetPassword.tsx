@@ -17,7 +17,6 @@ import * as yup from "yup";
 import { useFormik } from "formik";
 import { AppDispatch } from "../../../redux/store";
 interface Props {
-  routeKey: string;
 }
 
 // interface ValidationObject {
@@ -33,8 +32,6 @@ const validationSchema = yup.object().shape({
 });
 
 const ResetPassword: React.FC<Props> = (props) => {
-  const { routeKey } = props;
-  const param = routeKey;
   const dispatch = useDispatch<AppDispatch>();
   const resetPasswordSelector = useSelector(
     (state: any) => state.auth.resetPassword
@@ -63,7 +60,6 @@ const ResetPassword: React.FC<Props> = (props) => {
               token: window.location.search.replace("?token=", ""),
               password: values.password,
             },
-            user: param,
           })
         );
       }
@@ -74,7 +70,6 @@ const ResetPassword: React.FC<Props> = (props) => {
     dispatch(
       verifyPasswordToken({
         body: { token: window.location.search.replace("?token=", "") },
-        user: param,
       })
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -134,7 +129,6 @@ const ResetPassword: React.FC<Props> = (props) => {
       });
       toast.dismiss(toastId);
       toast.success(resetPasswordSelector.data?.message);
-      //(`/${routeKey}/${APP_USER_ROUTES.login}`);
     }
     if (
       resetPasswordSelector?.status === API_CONSTANTS.error &&

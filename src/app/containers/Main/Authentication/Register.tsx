@@ -12,14 +12,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { register } from "../../../redux/features/auth/authApi";
 import toast from "react-hot-toast";
 import CommonInput from "../../../common/Input";
-import { getFirstLastNameSepration } from "../../../utils/common";
 import AppLogo from "../../../common/AppLogo";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { AppDispatch } from "../../../redux/store";
+import AuthHelpers from "../../../helpers/AuthHelpers";
 interface Props {
   history?: any;
-  routeKey: string;
 }
 
 export interface ValidationObject {
@@ -53,10 +52,8 @@ const validationSchema = yup.object().shape({
 });
 
 const Register: React.FC<Props> = (props) => {
-  const { routeKey } = props;
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const param = routeKey;
 
   const registerSelector = useSelector((state: any) => state.auth.register);
   const formik = useFormik({
@@ -66,14 +63,11 @@ const Register: React.FC<Props> = (props) => {
       dispatch(
         register({
           body: {
-            first_name: getFirstLastNameSepration(values.name).first_name,
-            last_name: getFirstLastNameSepration(values.name).last_name,
+            userName: values.name,
             company_name: values.companyName,
             email: values.email,
             password: values.password,
-            type: param,
           },
-          user: param,
         })
       );
     },
@@ -91,7 +85,8 @@ const Register: React.FC<Props> = (props) => {
       setLoading(false);
       toast.dismiss(toastId);
       toast.success(DEFAULT_SUCCESS_MESSAGE.verification, { duration: 1000000 });
-      navigate(`/${APP_USER_ROUTES.buyer}/${APP_USER_ROUTES.login}`);
+      AuthHelpers.saveTokenToLocalStorage(registerSelector.data?.token);
+      window.location.href = `/${APP_USER_ROUTES.buyer}/${APP_USER_ROUTES.dashboard}`;
       formik.resetForm({ values: { ...initialStage } });
     }
     if (registerSelector?.status === API_CONSTANTS.error && loading) {
@@ -187,7 +182,7 @@ const Register: React.FC<Props> = (props) => {
           {"Already have an account? "}
           <Link
             className="text-brand-primary-blue"
-            to={`/${routeKey}/${APP_USER_ROUTES.login}`}
+            to={`/${APP_USER_ROUTES.buyer}/${APP_USER_ROUTES.login}`}
           >
             Login
           </Link>

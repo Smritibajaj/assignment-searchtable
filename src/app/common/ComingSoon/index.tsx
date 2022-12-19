@@ -6,9 +6,7 @@ import { Link } from 'react-router-dom';
 import AuthHelpers from '../../helpers/AuthHelpers';
 import { APP_USER_ROUTES } from '../../utils/constants/appRoutes';
 
-interface Props{
-  routeKey ?: string;
-}
+interface Props{}
 
 const ComingSoon: React.FC<Props> = (props) => {
   return (

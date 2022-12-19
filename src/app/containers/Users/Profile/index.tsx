@@ -12,7 +12,6 @@ import {
 } from "../../../utils/common";
 import toast from "react-hot-toast";
 import { LOADING_TEXT } from "../../../utils/constants/constants";
-import { useCompanySelector } from "../../../hooks/useCompanySelector";
 import Loader from "../../../common/Loader";
 const initialState = {
   name: "",
@@ -30,7 +29,6 @@ const validationSchema = yup.object().shape({
 });
 const Profile: React.FC<RouteComponent> = (props: RouteComponent) => {
   const userProfile = useSelector((state: any) => state.user.data);
-  const { user, c_uuid } = useCompanySelector(props.routeKey);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -51,8 +49,6 @@ const Profile: React.FC<RouteComponent> = (props: RouteComponent) => {
       let toastId: any;
       toastId = toast.loading(LOADING_TEXT.processing);
       updateBuyerProfile({
-        user,
-        c_uuid,
         data: {
           first_name: getFirstLastNameSepration(values.name).first_name,
           last_name:

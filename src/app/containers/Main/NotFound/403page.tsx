@@ -6,7 +6,7 @@ import CommonButton from "../../../common/Button";
 
 const NotFound: React.FC = () => {
   const navigate = useNavigate();
-  //const routeKey = localStorage.getItem("userType") || PLATFORM_USERS.BUYER;
+
   return (
     <div className="flex flex-col justify-center items-center bg-brand-primary-white py-24 px-6">
       <div className="max-w-xs">

@@ -22,8 +22,7 @@ interface ValidationObject {
 }
 
 const ForgotPassword: React.FC<RouteComponent> = (props: RouteComponent) => {
-  const { routeKey } = props;
-  const param = routeKey;
+  const param = '';
   const dispatch = useDispatch<AppDispatch>();
   const forgotPasswordSelector = useSelector(
     (state: any) => state.auth.forgotPassword
@@ -110,7 +109,7 @@ const ForgotPassword: React.FC<RouteComponent> = (props: RouteComponent) => {
           {"Don't have account? "}
           <Link
             className="text-brand-primary-blue"
-            to={`/${routeKey}/${APP_USER_ROUTES.register}`}
+            to={`/${APP_USER_ROUTES.buyer}/${APP_USER_ROUTES.register}`}
           >
             Register
           </Link>

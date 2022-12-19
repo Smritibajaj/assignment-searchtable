@@ -5,6 +5,7 @@ import {
  
 } from "../../utils/constants/constants";
 import { ReactComponent as DashboardIcon } from "assignment-typescript-fe/assets/img/sidebar/dashboard.svg";
+import { ReactComponent as ProfileIcon } from "assignment-typescript-fe/assets/img/sidebar/settings.svg";
 
 export const sideBarConfig = [
   {
@@ -14,10 +15,19 @@ export const sideBarConfig = [
     allowedUserType: [
       PLATFORM_USERS.BUYER,
     ],
-    link: AuthHelpers.getUserTypeFromLocalStorage()
-      ? `/${AuthHelpers.getUserTypeFromLocalStorage()}/${
+    link: `/${ APP_USER_ROUTES.buyer}/${
           APP_USER_ROUTES.dashboard
         }`
-      : "",
+  },
+  {
+    id: "profile",
+    drawerItemName: "Profile",
+    icon: ProfileIcon,
+    allowedUserType: [
+      PLATFORM_USERS.BUYER,
+    ],
+    link: `/${ APP_USER_ROUTES.buyer}/${
+      APP_USER_ROUTES.profile
+    }`
   },
 ];

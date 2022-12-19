@@ -9,7 +9,6 @@ const axiosBaseQuery =
     {
       url: string;
       method: AxiosRequestConfig["method"];
-      //data?: AxiosRequestConfig["data"];
       params?: AxiosRequestConfig["params"];
     },
     unknown,
@@ -22,7 +21,7 @@ const axiosBaseQuery =
         method,
         params,
       });
-      return { data: result };
+      return { data: { ...result } };
     } catch (axiosError) {
       let err = axiosError as AxiosError;
       return {
@@ -41,11 +40,9 @@ export const api = createApi({
   keepUnusedDataFor: 0,
   refetchOnMountOrArgChange: 10,
   endpoints: (builder) => ({
-    getAllSupplierRfq: builder.query<
+    getTableData: builder.query<
       any,
       {
-        user: string;
-        c_uuid: string;
         page?: number;
         limit?: number;
         sort?: string;
@@ -54,128 +51,15 @@ export const api = createApi({
       }
     >({
       query: (arg): any => {
-        const { user, c_uuid, page, limit, sort, sortBy, filter } = arg;
+        const { page, limit, sort, sortBy, filter } = arg;
 
         return {
           method: "get",
-          url: `${API_URLS[user].getAllRfq}`,
-          params: { c_uuid, page, limit, sort, sortBy, filter },
-        };
-      },
-    }),
-    getRfq: builder.query<
-      any,
-      {
-        user: string;
-        c_uuid: string;
-        page?: number;
-        limit?: number;
-        sort?: string;
-        sortBy?: string;
-        filter?: string;
-      }
-    >({
-      query: (arg): any => {
-        const { user, c_uuid, page, limit, sort, sortBy, filter } = arg;
-        return {
-          method: "get",
-          url: `${API_URLS[user].getAllRFQ}`,
-          params: { c_uuid, page, limit, sort, sortBy, filter },
-        };
-      },
-    }),
-
-    getBuyers: builder.query<
-      any,
-      {
-        user: string;
-        c_uuid: string;
-        page?: number;
-        limit?: number;
-        sort?: string;
-        sortBy?: string;
-        filter?: string;
-      }
-    >({
-      query: (arg): any => {
-        const { user, c_uuid, page, limit, sort, sortBy, filter } = arg;
-        return {
-          method: "get",
-          url: `${API_URLS[user].getBuyers}`,
-          params: { c_uuid, page, limit, sort, sortBy, filter },
-        };
-      },
-    }),
-    getSupplier: builder.query<
-      any,
-      {
-        user: string;
-        c_uuid: string;
-        page?: number;
-        limit?: number;
-        sort?: string;
-        sortBy?: string;
-        filter?: string;
-      }
-    >({
-      query: (arg): any => {
-        const { user, c_uuid, page, limit, sort, sortBy, filter } = arg;
-        return {
-          method: "get",
-          url: `${API_URLS[user]?.getSupplierList}`,
-          params: { c_uuid, page, limit, sort, sortBy, filter },
-        };
-      },
-    }),
-    getAllBillingEntities: builder.query<
-      any,
-      {
-        user: string;
-        c_uuid: string;
-        page?: number;
-        limit?: number;
-        sort?: string;
-        sortBy?: string;
-        filter?: string;
-      }
-    >({
-      query: (arg): any => {
-        const { user, c_uuid, page, limit, sort, sortBy, filter } = arg;
-        return {
-          method: "get",
-          url: `${API_URLS[user].getAllBillingEntity}`,
-          params: { c_uuid, page, limit, sort, sortBy, filter },
-        };
-      },
-    }),
-    getInvitedUsers: builder.query<
-      any,
-      {
-        user: string;
-        c_uuid: string;
-        page?: number;
-        limit?: number;
-        sort?: string;
-        sortBy?: string;
-        filter?: string;
-      }
-    >({
-      query: (arg): any => {
-        const { user, c_uuid, page, limit, sort, sortBy, filter } = arg;
-        return {
-          method: "get",
-          url: `${API_URLS[user].getCompanyInvitedUsers}`,
-          params: { c_uuid, page, limit, sort, sortBy, filter },
+          url: `${API_URLS.getAllCompanies}`,
+          params: { page, limit, sort, sortBy, filter },
         };
       },
     }),
   }),
 });
-export const {
-  useGetRfqQuery,
-  useGetInvitedUsersQuery,
-  useGetAllSupplierRfqQuery,
-  useGetBuyersQuery,
-  useGetAllBillingEntitiesQuery,
-  useGetSupplierQuery,
-} = api;
+export const { useGetTableDataQuery } = api;

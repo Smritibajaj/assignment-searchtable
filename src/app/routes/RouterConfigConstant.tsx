@@ -27,9 +27,7 @@ const BuyerProfile = React.lazy(() => import("../containers/Users/Profile"));
 //TODO - Write Hook
 
 /** Config meaning
- *
  * path - path for url
- * element - component, add routekey as a props to check user for that component
  * index is it index route
  * indexElement - if index routes then what's is the route element. <Outlet/> in that component is mandatory
  * chidlren : to define nested route
@@ -42,7 +40,7 @@ const UserRouteModule: IRoute = {
   protected: false,
   indexElement: (
     <Auth>
-      <Login routeKey={PLATFORM_USERS.BUYER} />
+      <Login />
     </Auth>
   ),
   children: [
@@ -50,7 +48,7 @@ const UserRouteModule: IRoute = {
       path: APP_USER_ROUTES.register,
       element: (
         <Auth>
-          <Register routeKey={PLATFORM_USERS.BUYER} />
+          <Register  />
         </Auth>
       ),
       protected: false,
@@ -60,7 +58,7 @@ const UserRouteModule: IRoute = {
 
       element: (
         <Auth>
-          <Login routeKey={PLATFORM_USERS.BUYER} />
+          <Login />
         </Auth>
       ),
       protected: false,
@@ -70,7 +68,7 @@ const UserRouteModule: IRoute = {
 
       element: (
         <Auth>
-          <ForgotPassword routeKey={PLATFORM_USERS.BUYER} />,
+          <ForgotPassword />,
         </Auth>
       ),
       protected: false,
@@ -80,19 +78,19 @@ const UserRouteModule: IRoute = {
 
       element: (
         <Auth>
-          <ResetPassword routeKey={PLATFORM_USERS.BUYER} />
+          <ResetPassword />
         </Auth>
       ),
       protected: false,
     },
     {
       path: APP_USER_ROUTES.dashboard,
-      element: <BuyerDashboard routeKey={PLATFORM_USERS.BUYER} />,
+      element: <BuyerDashboard />,
       protected: true,
     },
     {
       path: APP_USER_ROUTES.profile,
-      element: <BuyerProfile routeKey={PLATFORM_USERS.BUYER} />,
+      element: <BuyerProfile  />,
       protected: true,
     },
   ],

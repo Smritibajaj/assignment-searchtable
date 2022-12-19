@@ -67,7 +67,7 @@
     "./common": {
       "types": "./types/index.d.ts",
       "import": "./src/app/common/",
-      "require":  "./src/app/common/"
+      "require": "./src/app/common/"
     },
     "./containers": "./src/app/containers/",
     "./helpers": "./src/app/helpers/",

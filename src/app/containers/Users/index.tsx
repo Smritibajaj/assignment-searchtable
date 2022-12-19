@@ -13,18 +13,12 @@ export default function Buyer(props: any) {
   // Get Sidebar Open status from localstorage
   let sideBarOpen = true;
   const sideBarStatus = localStorage.getItem("sideBarOpen");
-  if(sideBarStatus && sideBarStatus === "false") {
+  if (sideBarStatus && sideBarStatus === "false") {
     sideBarOpen = false;
   }
   const { children, isSideBarDisabled } = props;
   const [open, setOpen] = useState(sideBarOpen);
   const [loading, setLoading] = useState(false);
-  const compamySlug = AuthHelpers.getDataFromLocalStorage("company");
-  const userType = AuthHelpers.getUserTypeFromLocalStorage() || props.routeKey;
-  const companyDetails = compamySlug && JSON.parse(compamySlug);
-  const redirectUrl = companyDetails?.slug
-    ? `/${userType}/${companyDetails.slug}/${APP_USER_ROUTES.login}`
-    : `/${userType}/${APP_USER_ROUTES.login}`;
   const userSelector = useSelector((state: any) => state.user);
   const navigate = useNavigate();
 
@@ -36,27 +30,27 @@ export default function Buyer(props: any) {
   const handleDrawerClose = () => {
     setOpen(!open);
   };
-
-  useEffect(() => {
-    if (userSelector.status === API_CONSTANTS.error) {
-      AuthHelpers.removeTokenFromLocalStorage()
-      setLoading(false);
-      navigate(redirectUrl);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [userSelector]);
-
   if (loading) {
     return <FullPageLoader />;
   }
 
   return (
     <div className="flex h-screen">
-      {!isSideBarDisabled ? <div>
-        <CssBaseline />
-        <Header open={open} handleDrawerOpen={handleDrawerOpen} routeKey={userType} />
-       <Sidebar open={open} handleDrawerClose={handleDrawerClose} routeKey={userType} />
-      </div> : <></>}
+      {!isSideBarDisabled ? (
+        <div>
+          <CssBaseline />
+          <Header
+            open={open}
+            handleDrawerOpen={handleDrawerOpen}
+          />
+          <Sidebar
+            open={open}
+            handleDrawerClose={handleDrawerClose}
+          />
+        </div>
+      ) : (
+        <></>
+      )}
       <main className="flex-1 bg-brand-background-white overflow-hidden pt-14 h-full">
         <div className="overflow-auto h-full">
           <div className="m-8">{children}</div>

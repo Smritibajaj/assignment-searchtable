@@ -7,7 +7,6 @@ import { PLATFORM_USERS } from "../../../utils/constants/constants";
 
 const NotFound: React.FC = () => {
   const navigate = useNavigate();
-  const routeKey = localStorage.getItem("userType") || PLATFORM_USERS.BUYER;
   return (
     <div className="flex flex-col justify-center items-center bg-brand-primary-white py-24 px-6">
       <div className="max-w-xs">
@@ -22,7 +21,7 @@ const NotFound: React.FC = () => {
         </p>
         <div>
           <CommonButton
-            onClick={() => navigate(`/${routeKey}`)}
+            onClick={() => navigate(`/`)}
             text={`Back to Home`}
           />
         </div>
