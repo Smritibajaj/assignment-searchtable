@@ -117,7 +117,7 @@ const Dashboard = (props: any) => {
   };
   return (
     <React.Fragment>
-      <PageTitle>Australian Business Registration </PageTitle>
+      <PageTitle className="py-4">Australian Business Registration </PageTitle>
       <EnhancedTable
         columns={columns}
         rows={data?.data || []}
